@@ -60,6 +60,7 @@ Shader "MyShader/WarpShader"
 				const float2 HALF = float2(0.5, 0.5);
 				float2x2 rotMat = {_TexRotationVec.x, _TexRotationVec.y, _TexRotationVec.z, _TexRotationVec.w};
 				//float2 mapUV = mul(_TextureRotation, i.uv-HALF) + HALF;
+				// 中心を軸として回転
 				float2 mapUV = mul(rotMat, i.uv-HALF) + HALF;
 				if (!inside(mapUV)) return BLACK;
 
