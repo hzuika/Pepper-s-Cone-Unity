@@ -64,10 +64,12 @@ Shader "MyShader/WarpShader"
 				float2 mapUV = mul(rotMat, i.uv-HALF) + HALF;
 				if (!inside(mapUV)) return BLACK;
 
+				// 歪みテクスチャをmapに格納
 				float4 map = tex2D(MapTex, mapUV);
 				float2 renderedTexUV = float2(map.x, map.y);
 				if (!inside(renderedTexUV)) return BLACK;
 					//		fixed4 col = map;
+				// 歪みテクスチャの画素値をuvとして，レンダー画像をテクスチャに格納
 				fixed4 col = _alpha * pow(tex2D(RenderedTex, renderedTexUV), _power);
 				return col;
 			}
