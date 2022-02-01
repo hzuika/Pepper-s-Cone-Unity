@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StereoWarpMaterial
+  m_Name: stereoWarpMaterial
   m_Shader: {fileID: 4800000, guid: 90177468782014b4480b38203548e46d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5

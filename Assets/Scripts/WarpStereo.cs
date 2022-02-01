@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// VR用
 public class WarpStereo : WarpBase {
 	const int kNumEyes = 2;
 	// encoded warp maps, [0] for left eye and [1] for right eye. 

@@ -21,6 +21,7 @@ public class WarpMono : WarpBase {
 
 	// Update is called once per frame
     // LateUpdate is called after update but before rendering
+	// LateUpdateはupdate後でrendering前に呼ばれる．
 	protected void LateUpdate () {
 		// although the texture's rotating eulerZ degree, the uv needs to rotate -eulerZ
 		Quaternion rot = Quaternion.Euler (0, 0, -RotationManager.RotationAngle);
