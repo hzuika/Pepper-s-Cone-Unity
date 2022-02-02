@@ -49,7 +49,7 @@ Shader "MyShader/WarpShader"
 
 			bool inside(float2 uv) {
 				static const float EPS = 1e-3;
-				return EPS <= uv.x && uv.x <= 1-EPS && EPS <= uv.y && uv.y <= 1-EPS;
+				return (EPS <= uv.x && uv.x <= 1-EPS) && (EPS <= uv.y && uv.y <= 1-EPS);
 			}
 
 			uniform float _power;
@@ -62,15 +62,27 @@ Shader "MyShader/WarpShader"
 				//float2 mapUV = mul(_TextureRotation, i.uv-HALF) + HALF;
 				// 中心を軸として回転
 				float2 mapUV = mul(rotMat, i.uv-HALF) + HALF;
+				// 回転後の範囲外の場所を黒にする．
 				if (!inside(mapUV)) return BLACK;
 
 				// 歪みテクスチャをmapに格納
 				float4 map = tex2D(MapTex, mapUV);
+
+				// デバッグ
+				// 元のUVを表示する．
+				// fixed4 col = fixed4(mapUV.x, mapUV.y, 0.0, 1.0);
+				// 歪みテクスチャを表示する．
+				// fixed4 col = map;
+				// オフスクリーンレンダリング画像を表示する．
+				// fixed4 col = tex2D(RenderedTex, mapUV);
+
 				float2 renderedTexUV = float2(map.x, map.y);
+				// 歪みテクスチャ以外の場所を黒にする．
 				if (!inside(renderedTexUV)) return BLACK;
-					//		fixed4 col = map;
+
 				// 歪みテクスチャの画素値をuvとして，レンダー画像をテクスチャに格納
 				fixed4 col = _alpha * pow(tex2D(RenderedTex, renderedTexUV), _power);
+
 				return col;
 			}
 			ENDCG

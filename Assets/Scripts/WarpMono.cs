@@ -25,8 +25,10 @@ public class WarpMono : WarpBase {
 	protected void LateUpdate () {
 		// although the texture's rotating eulerZ degree, the uv needs to rotate -eulerZ
 		Quaternion rot = Quaternion.Euler (0, 0, -RotationManager.RotationAngle);
+		// 拡大縮小してから，元にも戻す．
 		Matrix4x4 m = Matrix4x4.Scale(new Vector3(1.0f/tabletScreenScale.x, 1.0f/tabletScreenScale.y, 1f)) 
 			* Matrix4x4.TRS (Vector3.zero, rot, tabletScreenScale);
+		// 2x2の回転行列だけ抜き出す．
 		material.SetVector("_TexRotationVec", new Vector4(m[0,0], m[0,1], m[1,0], m[1,1]));
 		material.SetFloat ("_power", power);
 		material.SetFloat ("_alpha", alpha);
